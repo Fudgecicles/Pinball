@@ -21,6 +21,7 @@ public class Particle : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         col = new Color(Random.Range(lowerRange.r, upperRange.r), Random.Range(lowerRange.g, upperRange.g), Random.Range(lowerRange.b, upperRange.b));
         system.startColor = col;
+        maxDistance = transform.parent.GetComponent<ParticleBall>().radius*.9f;
 	}
 	
 	// Update is called once per frame
