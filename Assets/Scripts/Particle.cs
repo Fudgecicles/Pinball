@@ -28,11 +28,11 @@ public class Particle : MonoBehaviour {
 	void Update () {
         if (Vector2.Distance(parent.position, transform.position) > maxDistance)
         {
-            rb.velocity = new Vector2(0, 0);
-            rb.AddForce(parent.transform.position);
+            //rb.velocity = new Vector2(0, 0);
+            //rb.AddForce(parent.transform.position);
         }
 
-
+        /*
         Vector2 dir = rb.velocity;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -41,6 +41,6 @@ public class Particle : MonoBehaviour {
 
         Vector3 dif = transform.position - parent.position;
         Vector2 cross = Vector3.Cross(dif, new Vector3(0,0,1)).normalized;
-        GetComponent<Rigidbody2D>().AddForce(cross * Time.deltaTime * rotation);
+        GetComponent<Rigidbody2D>().AddForce(cross * Time.deltaTime * rotation);*/
 	}
 }
