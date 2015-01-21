@@ -16,12 +16,14 @@ public class TubeHandler : MonoBehaviour
     private bool hitTop;
     private bool hitBottom;
     private IEnumerator fizzleInstance;
+    private GameManager manager;
 
 
 	// Use this for initialization
 	void Start ()
 	{
-	    ball = (GameObject)Resources.Load("Prefabs/PlayerBall");
+	    manager = GameObject.Find("Canvas").GetComponent<GameManager>();
+        ball = (GameObject)Resources.Load("Prefabs/PlayerBall");
 	    effectors = GetComponentsInChildren<AreaEffector2D>();
         degrees = new float[effectors.Count()];
 	    for (int k = 0; k < effectors.Count(); k++)
@@ -68,7 +70,7 @@ public class TubeHandler : MonoBehaviour
                 inside = false;
                 StartCoroutine(resetSpawn());
                 cloneBall.GetComponent<CircleCollider2D>().enabled = true;
-                cloneBall.GetComponent<Rigidbody2D>().gravityScale = 3;
+                cloneBall.GetComponent<Rigidbody2D>().gravityScale = 5;
                 if (col.transform.position.y > 22)
                 {
                     if (hitBottom)
@@ -76,6 +78,8 @@ public class TubeHandler : MonoBehaviour
                         StopCoroutine(fizzleInstance);
                         cloneBall.GetComponent<Rigidbody2D>().velocity = new Vector2(-10, 0);
                         cloneBall.layer = 0;
+                        manager.lives += 1;
+
                     }
                     else
                     {
@@ -89,7 +93,7 @@ public class TubeHandler : MonoBehaviour
                         StopCoroutine(fizzleInstance);
                         cloneBall.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -50);
                         cloneBall.layer = 0;
-
+                        manager.lives += 1;
                     }
                     else
                     {
@@ -123,6 +127,7 @@ public class TubeHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(6);
         stop(tempParticle);
+        Destroy(tempParticle);
     }
 
     void stop(GameObject particles)

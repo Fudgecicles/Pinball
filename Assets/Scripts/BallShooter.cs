@@ -41,10 +41,10 @@ public class BallShooter : MonoBehaviour
             timer += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
-        Debug.Log(timer);
         float temp = Mathf.Min(timer, chargeTime);
         temp = temp/chargeTime;
         ball.GetComponent<Rigidbody2D>().velocity = new Vector2(0,temp*maxVelocity);
+        timer = 0;
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -52,14 +52,19 @@ public class BallShooter : MonoBehaviour
         if (col.transform.position.y > 22)
         {
             ball.layer = 0;
+            gameObject.layer = 0;
         }
         else
         {
-            if(hasBall)
+            if (hasBall)
+            {
                 hasBall = false;
+                gameObject.layer = 10;
+            }
             else
             {
                 hasBall = true;
+                gameObject.layer = 10;
             }
         }
     }
@@ -69,6 +74,8 @@ public class BallShooter : MonoBehaviour
         if (col.transform.position.y < -10.9)
         {
             hasBall = true;
+            gameObject.layer = 10;
+
         }
     }
 }

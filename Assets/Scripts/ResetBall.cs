@@ -30,9 +30,9 @@ public class ResetBall : MonoBehaviour
             if (manager.lives > 0)
             {
                 GameObject temp = (GameObject)Instantiate(ball, respawnPoint, Quaternion.identity);
-                temp.GetComponent<Rigidbody2D>().gravityScale = 3;
+                temp.GetComponent<Rigidbody2D>().gravityScale = 5;
                 temp.GetComponent<CircleCollider2D>().enabled = true;
-
+                GameObject.Find("Start").layer = 10;
             }
         }
         else
