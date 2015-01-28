@@ -35,7 +35,7 @@ public class ParticleBall : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (col.tag!="Player")
+        if (col.tag != "Player")
         {
             col.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             float r = (float) Random.Range(0, radius/2) + radius/2;
@@ -45,6 +45,29 @@ public class ParticleBall : MonoBehaviour {
             col.transform.position = new Vector2(x, y);
 
         }
+        else
+        {
+            StopCoroutine("ejectPlayer");
+
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.transform.tag == "Player")
+        {
+            Debug.Log("happened");
+            StartCoroutine(ejectPlayer(col.gameObject));
+        }
+    }
+
+    
+
+    IEnumerator ejectPlayer(GameObject player)
+    {
+        yield return new WaitForSeconds(5);
+        if(player!=null&&Vector2.Distance(transform.position,player.transform.position)<5)
+        player.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(0.0f,1.0f),Random.Range(0.0f,1.0f)).normalized*20000);
     }
 
     IEnumerator moveRight()

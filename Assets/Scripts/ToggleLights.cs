@@ -8,6 +8,8 @@ public class ToggleLights : MonoBehaviour
 
     private Light[] lights;
     public float pause = 1;
+    private IEnumerator co1;
+    private IEnumerator co2;
 
 	// Use this for initialization
 	void Start ()
@@ -17,8 +19,10 @@ public class ToggleLights : MonoBehaviour
 	    {
 	        lights[k].enabled = false;
 	    }
-	    StartCoroutine(toggleLights(0));
-	    StartCoroutine(toggleLights(4));
+	    co1 = toggleLights(0);
+	    co2 = toggleLights(4);
+	    StartCoroutine(co1);
+	    StartCoroutine(co2);
 	}
 	
 	// Update is called once per frame
@@ -78,5 +82,17 @@ public class ToggleLights : MonoBehaviour
             yield return new WaitForSeconds(pause);
         }
 
+    }
+
+    public void stopToggle()
+    {
+        StopCoroutine(co1);
+        StopCoroutine(co2);
+    }
+
+    public void restartToggle()
+    {
+        StartCoroutine(co1);
+        StartCoroutine(co2);
     }
 }

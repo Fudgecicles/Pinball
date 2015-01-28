@@ -49,33 +49,38 @@ public class BallShooter : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.transform.position.y > 22)
-        {
-            ball.layer = 0;
-            gameObject.layer = 0;
-        }
-        else
-        {
-            if (hasBall)
+        if (col.tag == "Player") {
+            if (col.transform.position.y > 22)
             {
-                hasBall = false;
-                gameObject.layer = 10;
+                ball.layer = 0;
+                gameObject.layer = 13;
             }
             else
             {
-                hasBall = true;
-                gameObject.layer = 10;
+                if (hasBall)
+                {
+                    hasBall = false;
+                    gameObject.layer = 10;
+                }
+                else
+                {
+                    hasBall = true;
+                    gameObject.layer = 10;
+                }
             }
         }
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.transform.position.y < -10.9)
+        if (col.tag == "Player")
         {
-            hasBall = true;
-            gameObject.layer = 10;
+            if (col.transform.position.y < -10.9)
+            {
+                hasBall = true;
+                gameObject.layer = 10;
 
+            }
         }
     }
 }

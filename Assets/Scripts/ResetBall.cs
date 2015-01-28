@@ -23,21 +23,24 @@ public class ResetBall : MonoBehaviour
 	}
 
     void OnTriggerEnter2D(Collider2D col){
-        Destroy(col.gameObject);
-        manager.updateLives(-1);
-        if (GameObject.FindGameObjectsWithTag("Player").Count()<2)
+        if (col.gameObject.tag == "Player")
         {
-            if (manager.lives > 0)
+            Destroy(col.gameObject);
+            manager.updateLives(-1);
+            if (GameObject.FindGameObjectsWithTag("Player").Count() < 2)
             {
-                GameObject temp = (GameObject)Instantiate(ball, respawnPoint, Quaternion.identity);
-                temp.GetComponent<Rigidbody2D>().gravityScale = 5;
-                temp.GetComponent<CircleCollider2D>().enabled = true;
-                GameObject.Find("Start").layer = 10;
+                if (manager.lives > 0)
+                {
+                    GameObject temp = (GameObject) Instantiate(ball, respawnPoint, Quaternion.identity);
+                    temp.GetComponent<Rigidbody2D>().gravityScale = 5;
+                    temp.GetComponent<CircleCollider2D>().enabled = true;
+                    GameObject.Find("Start").layer = 10;
+                }
             }
-        }
-        else
-        {
-            Debug.Log(GameObject.FindGameObjectWithTag("Player").name);
+            else
+            {
+                Debug.Log(GameObject.FindGameObjectWithTag("Player").name);
+            }
         }
     }
 }

@@ -22,16 +22,24 @@ public class AddScore : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        manager.updateScore(points);
-        TextMesh temp = ((GameObject)Instantiate(text, col.transform.position, Quaternion.identity)).GetComponent<TextMesh>();
-        temp.text = points.ToString();
-
+        if (col.transform.tag == "Player")
+        {
+            manager.updateScore(points);
+            TextMesh temp =
+                ((GameObject) Instantiate(text, col.transform.position, Quaternion.identity)).GetComponent<TextMesh>();
+            temp.text = points.ToString();
+        }
     }
 
+       
     void OnTriggerEnter2D(Collider2D col)
     {
-        manager.updateScore(points);
-        TextMesh temp = ((GameObject)Instantiate(text, col.transform.position, Quaternion.identity)).GetComponent<TextMesh>();
-        temp.text = points.ToString();
+        if (col.gameObject.tag == "Player")
+        {
+            manager.updateScore(points);
+            TextMesh temp =
+                ((GameObject) Instantiate(text, col.transform.position, Quaternion.identity)).GetComponent<TextMesh>();
+            temp.text = points.ToString();
+        }
     }
 }
